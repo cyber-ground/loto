@@ -1,0 +1,203 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  line-height: 1;
+  vertical-align: baseline;
+  list-style-type: none;
+  user-select: none;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #333;
+}
+
+.card-unit {
+  position: relative;
+  width: max-content;
+  display: flex;
+  justify-content: center;
+  margin: 10px 0;
+}
+.card-unit .js_card {
+  display: flex;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.1);
+  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(3px);
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4), -1px -1px 3px rgba(0, 0, 0, 0.4);
+}
+.card-unit .js_card.activate_loto6 .js_columns {
+  width: 70px;
+}
+.card-unit .js_card.activate_loto6 .js_rows {
+  width: 60px !important;
+}
+.card-unit .js_card .js_columns {
+  width: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.card-unit .js_card .js_columns:first-of-type {
+  margin-left: 10px;
+}
+.card-unit .js_card .js_columns .js_rows {
+  width: 70px;
+  height: 43px;
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 6px;
+  margin: 10px 10px 0 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.card-unit .js_card .js_columns .js_rows:last-child {
+  margin-bottom: 10px;
+}
+.card-unit .js_card .js_columns .js_circle {
+  width: 43px !important;
+  aspect-ratio: 1;
+  border-radius: 50% !important;
+  background-color: rgba(255, 0, 0, 0.6666666667) !important;
+  color: #fff;
+}
+
+.btn-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: max-content;
+  height: 50px;
+}
+.btn-wrapper .btn-toggle {
+  position: relative;
+  width: 80px;
+  height: 50px;
+  background-color: rgba(255, 255, 255, 0.1);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2), -1px -1px 5px rgba(0, 0, 0, 0.2);
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  cursor: pointer;
+}
+.btn-wrapper .btn-toggle::before {
+  content: "";
+  position: absolute;
+  background-image: url("img/repeat-1.png");
+  background-position: center;
+  background-size: cover;
+  width: 38px;
+  height: 38px;
+  filter: invert(1);
+}
+.btn-wrapper .theme-loto {
+  position: relative;
+  width: 80px;
+  height: 50px;
+  background-color: rgba(255, 255, 255, 0.1);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2), -1px -1px 5px rgba(0, 0, 0, 0.2);
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: var(--theme);
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.btn-wrapper .theme-loto img {
+  width: 70px;
+  height: auto;
+}
+.btn-wrapper .btn-getNum {
+  position: relative;
+  width: 100px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgba(255, 0, 0, 0.6862745098);
+  font-size: 14px;
+  font-weight: bold;
+  background-color: rgba(255, 255, 255, 0.1);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 5px 0 rgba(255, 255, 255, 0.3), 5px 10px 10px rgba(0, 0, 0, 0.2), -5px -5px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  padding: 20px 10px;
+  margin: 0 15px;
+  cursor: pointer;
+}
+.btn-wrapper .btn-getNum .fa-face {
+  font-size: 35px;
+  padding: 0 3px;
+}
+.btn-wrapper .btn-getNum .fa-star {
+  font-size: 18px;
+}
+.btn-wrapper .btn-getNum.active {
+  margin-top: 5px;
+  box-shadow: 0 0 0 rgba(255, 255, 255, 0.5), 0 0 0 rgba(255, 255, 255, 0.5);
+  color: #0f0;
+}
+
+.bg {
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  z-index: -1;
+}
+
+.bg.loto7 {
+  background-image: url("img/pic5.jpg");
+}
+
+.bg.loto6 {
+  background-image: url("img/pic1.jpg");
+  background-position: -250px 0px;
+}
+
+.bg.lotoMini {
+  background-image: url("img/pic2.jpg");
+  background-position: -200px -500px;
+  background-size: 1200px 1400px;
+}
+
+.bg.numbers4 {
+  background-image: url("img/pic3.jpg");
+  background-position: -200px -500px;
+  background-size: 1200px 1400px;
+}
+
+@media (max-width: 420px) {
+  video {
+    display: none;
+  }
+}
+@media (min-width: 420px) {
+  video {
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+  }
+  .card-unit, .btn-wrapper, .bg {
+    display: none;
+  }
+}
