@@ -102,9 +102,9 @@ import {console_color,console_red,console_orange,console_yellow,console_green,
   const btnToggle = document.querySelector('.btn-toggle');
     btnToggle.addEventListener('click', () => {
       bgmHowl.stop();
-      isPlaying = false;
       swapHowl.play();
-      setTimeout(() => { location.href = './numbers.html'}, 300);
+      isPlaying = false;
+      setTimeout(() => { location.href = './numbers.html'}, 500);
     });
 
   window.addEventListener('resize', () => {
