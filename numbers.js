@@ -88,7 +88,7 @@ import {console_color,console_red,console_orange,console_yellow,console_green,
 			bgmHowl.stop();
       isPlaying = false;
 			swapHowl.play();
-			setTimeout(() => { location.href = './index.html'}, 200);
+			setTimeout(() => { location.href = './index.html'}, 300);
 		});
 
 	window.addEventListener('resize', () => {

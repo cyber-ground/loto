@@ -101,7 +101,7 @@ import {console_color,console_red,console_orange,console_yellow,console_green,
       bgmHowl.stop();
       isPlaying = false;
       swapHowl.play();
-      setTimeout(() => { location.href = './loto6.html'}, 200);
+      setTimeout(() => { location.href = './loto6.html'}, 300);
     });
 
   window.addEventListener('resize', () => {

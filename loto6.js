@@ -107,7 +107,7 @@ import {console_color,console_red,console_orange,console_yellow,console_green,
       bgmHowl.stop();
       isPlaying = false;
       swapHowl.play();
-      setTimeout(() => { location.href = './miniLoto.html'}, 200);
+      setTimeout(() => { location.href = './miniLoto.html'}, 300);
     });
 
   window.addEventListener('resize', () => {
