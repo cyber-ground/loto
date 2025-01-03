@@ -1,6 +1,6 @@
 'use strict';
-import console_color,{console_red,console_green,console_yellow,
-	console_purple,console_blue,console_cyan} from './logColor.js';
+import {console_color,console_red,console_orange,console_yellow,console_green,
+	console_blue,console_purple,console_magenta,console_cyan} from './logColor.js';
 
 
 //---------------------------------------------------------------------------------------------
