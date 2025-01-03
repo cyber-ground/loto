@@ -1,23 +1,16 @@
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-size: 100%;
-  font: inherit;
-  line-height: 1;
-  vertical-align: baseline;
-  list-style-type: none;
-  user-select: none;
-  -webkit-user-select: none;
+html, * {
+  overscroll-behavior-y: none;
+  -webkit-touch-callout: none;
+  touch-action: manipulation;
 }
 
 body {
   display: flex;
   align-items: center;
   flex-direction: column;
-  min-height: 100vh;
+  min-height: 100dvh;
   background-color: #333;
+  overflow: hidden;
 }
 
 .card-unit {
@@ -25,7 +18,10 @@ body {
   width: max-content;
   display: flex;
   justify-content: center;
-  margin: 10px 0;
+  margin: 10px 0 5px;
+}
+.card-unit.largeViewport {
+  margin: 20px 0;
 }
 .card-unit .js_card {
   display: flex;
@@ -159,7 +155,7 @@ body {
 .bg {
   position: absolute;
   width: 100%;
-  height: 100vh;
+  height: 100dvh;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;

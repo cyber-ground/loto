@@ -4,12 +4,24 @@ import console_color,{console_red,console_green,console_yellow,
 
 
 //---------------------------------------------------------------------------------------------
-//                               ----- MINI LOTO -----
+//*                               ----- MINI LOTO -----
 //---------------------------------------------------------------------------------------------
 
 
   const cardUnit = document.getElementById('card-unit');
     let defaultNumber, numbers, winningNumber;
+    var bgmHowl = new Howl({src: ['mp3/miniLoto.mp3'], loop: true, volume: 0.05}); 
+    var jackpotHowl = new Howl({src: ['mp3/jackpot.mp3'], volume: 0.2}); 
+		var swapHowl = new Howl({src: ['mp3/swap.mp3'], volume: 0.2}); 
+    let isPlaying = false;
+    let muted = false;
+    bgmHowl.stop();
+
+    function detectViewport() { //* init
+      if(getComputedStyle(document.body).height < '720px') {
+        cardUnit.classList.remove('largeViewport');
+      } else { cardUnit.classList.add('largeViewport')}
+    } detectViewport();
 
   function createWinningNumber() {
     [defaultNumber, numbers, winningNumber] = [[],[],[]];
@@ -68,25 +80,36 @@ import console_color,{console_red,console_green,console_yellow,
   }
 
 
-    const btnGetNum = document.getElementById('btn-getNum');
-  btnGetNum.addEventListener('click', function () {
-    clearBoard(); createWinningNumber(); assignWinningNumber();
-    btnGetNum.classList.add('active');
-    setTimeout(() => {
-      btnGetNum.classList.remove('active');
-    }, 150);
-  });
-
+  const btnGetNum = document.getElementById('btn-getNum');
+    btnGetNum.addEventListener('click', function () {
+      clearBoard(); createWinningNumber(); assignWinningNumber();
+      btnGetNum.classList.add('active');
+      if(!isPlaying) { bgmHowl.play()}
+      jackpotHowl.play();
+      isPlaying = true;
+      setTimeout(() => {
+        btnGetNum.classList.remove('active');
+      }, 150);
+    });
 
   const themeLoto = document.querySelector('.theme-loto');
     themeLoto.style.setProperty('--theme', 'url("img/miniloto.png")');
+    themeLoto.addEventListener('click', () => {
+      if(!muted) { bgmHowl.mute(true); muted = true} 
+      else { bgmHowl.mute(false); muted = false}
+		});
 
   const btnToggle = document.querySelector('.btn-toggle');
     btnToggle.addEventListener('click', () => {
-      window.location.href = './numbers.html';
+      bgmHowl.stop();
+      isPlaying = false;
+      swapHowl.play();
+      setTimeout(() => { location.href = './numbers.html'}, 200);
     });
 
-
+  window.addEventListener('resize', () => {
+    detectViewport();
+  });
 
 //---------------------------------------------------------------------------------------------
 
