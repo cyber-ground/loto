@@ -15,6 +15,7 @@ import {console_color,console_red,console_orange,console_yellow,console_green,
 		var swapHowl = new Howl({src: ['mp3/swap.mp3'], volume: 0.2}); 
     let isPlaying = false;
 		let muted = false;
+		let id_bgmHowl;
 		bgmHowl.stop();
 		
 		function detectViewport() { //* init
@@ -68,26 +69,22 @@ import {console_color,console_red,console_orange,console_yellow,console_green,
 		btnGetNum.addEventListener('click', function () {
 			clearBoard(); createWinningNumber(); assignWinningNumber();
 			btnGetNum.classList.add('active');
-			if(!isPlaying) { bgmHowl.play()}
-			jackpotHowl.play();
-			isPlaying = true;
-			setTimeout(() => {
-				btnGetNum.classList.remove('active');
-			}, 150);
+			if(!isPlaying) { id_bgmHowl = bgmHowl.play()}
+			jackpotHowl.play(); isPlaying = true;
+			setTimeout(() => { btnGetNum.classList.remove('active')}, 150);
 		});
 
 	const themeLoto = document.querySelector('.theme-loto');
 		themeLoto.style.setProperty('--theme', 'url("img/numbers4.png")');
 		themeLoto.addEventListener('click', () => {
-			if(!muted) { bgmHowl.mute(true); muted = true} 
-			else { bgmHowl.mute(false); muted = false}
+			if(!isPlaying) return;
+      if(!muted) { bgmHowl.fade(0.03, 0, 300, id_bgmHowl); muted = true} 
+      else { bgmHowl.volume(0.03); muted = false}
 		});
 
 	const btnToggle = document.querySelector('.btn-toggle');
 		btnToggle.addEventListener('click', () => {
-			bgmHowl.stop();
-			swapHowl.play();
-      isPlaying = false;
+			bgmHowl.stop(); swapHowl.play();
 			setTimeout(() => { location.href = './index.html'}, 500);
 		});
 

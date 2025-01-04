@@ -85,12 +85,9 @@ import {console_color,console_red,console_orange,console_yellow,console_green,
     btnGetNum.addEventListener('click', function () {
       clearBoard(); createWinningNumber(); assignWinningNumber();
       btnGetNum.classList.add('active');
-      if(!isPlaying) { bgmHowl.play()}
-      isPlaying = true;
-      jackpotHowl.play();
-      setTimeout(() => {
-        btnGetNum.classList.remove('active');
-      }, 150);
+      if(!isPlaying) { id_bgmHowl = bgmHowl.play()}
+      isPlaying = true; jackpotHowl.play();
+      setTimeout(() => { btnGetNum.classList.remove('active')}, 150);
     });
 
   const card = document.querySelector('.js_card'); //*
@@ -99,17 +96,14 @@ import {console_color,console_red,console_orange,console_yellow,console_green,
   const themeLoto = document.querySelector('.theme-loto');
     themeLoto.style.setProperty('--theme', 'url("img/loto6.png")');
     themeLoto.addEventListener('click', () => {
+      if(!isPlaying) return;
       if(!muted) { bgmHowl.fade(0.05, 0, 300, id_bgmHowl); muted = true} 
       else { bgmHowl.volume(0.05); muted = false}
-      // if(!muted) { bgmHowl.mute(true); muted = true} 
-      // else { bgmHowl.mute(false); muted = false}
 		});
 
   const btnToggle = document.querySelector('.btn-toggle');
     btnToggle.addEventListener('click', () => {
-      bgmHowl.stop();
-      swapHowl.play();
-      isPlaying = false;
+      bgmHowl.stop(); swapHowl.play(); 
       setTimeout(() => { location.href = './miniLoto.html'}, 500);
     });
 
