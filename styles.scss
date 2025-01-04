@@ -81,12 +81,6 @@
 //----------------------------------------------------------------------
 // Loto 7 ---
 
-html {
-  overscroll-behavior-y: none;
-  -webkit-touch-callout: none;
-  touch-action: manipulation;
-  // touch-action: none; // not appropriate
-}
 
 body {
   display: flex;
