@@ -34,7 +34,6 @@ import {console_color,console_red,console_orange,console_yellow,console_green,
 		}
 	} createWinningNumber();
 
-
 	function assignWinningNumber() {
 		const card = document.createElement('div');
 			cardUnit.appendChild(card);
@@ -55,7 +54,6 @@ import {console_color,console_red,console_orange,console_yellow,console_green,
 		}
 	} assignWinningNumber();
 
-
 	function clearBoard() {
 		cardUnit.removeChild(cardUnit.firstChild);
 		const rows = document.querySelectorAll('p');
@@ -63,7 +61,6 @@ import {console_color,console_red,console_orange,console_yellow,console_green,
 			row.classList.remove('js_circle');
 		});
 	}
-
 
 	const btnGetNum = document.getElementById('btn-getNum');
 		btnGetNum.addEventListener('click', function () {

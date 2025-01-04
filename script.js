@@ -53,7 +53,8 @@ import {console_color,console_red,console_orange,console_yellow,console_green,
     }
   } createFramework();
 
-
+const adjustLeftNums = ['21','31'];
+const adjustRightNums = ['10','12','13','14','15','16','17','18','19'];
   function assignWinningNumber() { 
     const rows = document.querySelectorAll('p');
       for (let i = 0; i < defaultNumber.length; i++) {
@@ -61,6 +62,7 @@ import {console_color,console_red,console_orange,console_yellow,console_green,
         winningNumber.forEach(num => {
           if(num === i + 1) {
             rows[i].classList.add('js_circle');
+            adjustPosWinningNumber(rows, i);
           }
         });
       }
@@ -69,6 +71,18 @@ import {console_color,console_red,console_orange,console_yellow,console_green,
     }
   } assignWinningNumber();
 
+  function adjustPosWinningNumber(rows, i) {
+    adjustLeftNums.map(num => {
+      if(rows[i].textContent === String(num)) {
+        rows[i].classList.add('adjustLeft');
+      }
+    })
+    adjustRightNums.map(num => {
+      if(rows[i].textContent === String(num)) {
+        rows[i].classList.add('adjustRight');
+      }
+    })
+  }
 
   function clearBoard() {
     const rows = document.querySelectorAll('p');
@@ -104,16 +118,8 @@ import {console_color,console_red,console_orange,console_yellow,console_green,
   window.addEventListener('resize', () => {
     detectViewport();
   });
-    
 
 //---------------------------------------------------------------------------------------------
-
-
-
-
-
-
-
 
 
 

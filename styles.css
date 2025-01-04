@@ -56,6 +56,11 @@ body {
   justify-content: center;
   align-items: center;
 }
+@media (max-height: 534px) {
+  .card-unit .js_card .js_columns .js_rows {
+    height: 35px;
+  }
+}
 .card-unit .js_card .js_columns .js_rows:last-child {
   margin-bottom: 10px;
 }
@@ -65,6 +70,19 @@ body {
   border-radius: 50% !important;
   background-color: rgba(255, 0, 0, 0.6666666667) !important;
   color: #fff;
+  font-size: 24px;
+}
+@media (max-height: 534px) {
+  .card-unit .js_card .js_columns .js_circle {
+    font-size: 22px;
+    width: 35px !important;
+  }
+}
+.card-unit .js_card .js_columns .js_circle.adjustLeft {
+  padding-left: 3px;
+}
+.card-unit .js_card .js_columns .js_circle.adjustRight {
+  padding-right: 2px;
 }
 
 .btn-wrapper {
@@ -92,7 +110,7 @@ body {
 .btn-wrapper .btn-toggle::before {
   content: "";
   position: absolute;
-  background-image: url("img/repeat-1.png");
+  background-image: url("img/repeat.png");
   background-position: center;
   background-size: cover;
   width: 38px;
@@ -161,24 +179,29 @@ body {
   background-repeat: no-repeat;
   z-index: -1;
 }
+@media (max-height: 534px) {
+  .bg {
+    height: 100lvh;
+  }
+}
 
 .bg.loto7 {
-  background-image: url("img/pic5.jpg");
+  background-image: url("img/pic1.jpg");
 }
 
 .bg.loto6 {
-  background-image: url("img/pic1.jpg");
+  background-image: url("img/pic2.jpg");
   background-position: -250px 0px;
 }
 
 .bg.lotoMini {
-  background-image: url("img/pic2.jpg");
+  background-image: url("img/pic3.jpg");
   background-position: -200px -500px;
   background-size: 1200px 1400px;
 }
 
 .bg.numbers4 {
-  background-image: url("img/pic3.jpg");
+  background-image: url("img/pic4.jpg");
   background-position: -200px -500px;
   background-size: 1200px 1400px;
 }
