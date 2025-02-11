@@ -7,22 +7,27 @@ import {console_color,console_red,console_orange,console_yellow,console_green,
 //*                               ----- MINI LOTO -----
 //---------------------------------------------------------------------------------------------
 
-
+  const container = document.querySelector('.container');
   const cardUnit = document.getElementById('card-unit');
-    let defaultNumber, numbers, winningNumber;
-    var bgmHowl = new Howl({src: ['mp3/miniLoto.mp3'], loop: true, volume: 0.05}); 
-    var jackpotHowl = new Howl({src: ['mp3/jackpot.mp3'], volume: 0.2}); 
-		var swapHowl = new Howl({src: ['mp3/swap.mp3'], volume: 0.2}); 
-    let isPlaying = false;
-    let muted = false;
-    let id_bgmHowl;
-    bgmHowl.stop();
+  let portrait = window.matchMedia('(orientation: portrait)').matches;
+  let defaultNumber, numbers, winningNumber;
+  var bgmHowl = new Howl({src: ['mp3/miniLoto.mp3'], loop: true, volume: 0.05}); 
+  var jackpotHowl = new Howl({src: ['mp3/jackpot.mp3'], volume: 0.2}); 
+  var swapHowl = new Howl({src: ['mp3/swap.mp3'], volume: 0.2}); 
+  let [isPlaying, muted, touch] = [false, false, false];
+  let id_bgmHowl, defaultHeight, menubar;
+  bgmHowl.stop();
 
-    function detectViewport() { //* init
-      if(getComputedStyle(document.body).height < '720px') {
-        cardUnit.classList.remove('largeViewport');
-      } else { cardUnit.classList.add('largeViewport')}
-    } detectViewport();
+  function init() { 
+    container.addEventListener('touchstart', e => e.preventDefault());
+    if(localStorage.hasOwnProperty('menubarHidden')) {
+      cardUnit.classList.add('largeViewport');
+      portrait = false; defaultHeight = innerHeight;
+    }
+    if(localStorage.hasOwnProperty('menubarHidden')) return;
+    if(portrait) { defaultHeight = innerHeight}
+    else { defaultHeight = innerWidth}
+  } init();
 
   function createWinningNumber() {
     [defaultNumber, numbers, winningNumber] = [[],[],[]];
@@ -94,6 +99,41 @@ const adjustRightNums = ['10','12','13','14','15','16','17','18','19'];
     });
   }
 
+  function detectViewport() { 
+    if(portrait) {
+      if(innerHeight > defaultHeight) {
+        menubar = false;
+        cardUnit.classList.add('largeViewport');
+        localStorage.setItem('menubarHidden', 'hidden');
+      } else if(innerHeight === defaultHeight) { 
+        menubar = true;
+        cardUnit.classList.remove('largeViewport');
+        localStorage.removeItem('menubarHidden', 'hidden');
+      }
+    } 
+    falseOrientation();
+  } detectViewport();
+
+  function falseOrientation() {
+    if(!portrait) {
+      if(innerHeight > defaultHeight) {
+        menubar = false;
+        cardUnit.classList.add('largeViewport');
+        localStorage.setItem('menubarHidden', 'hidden');
+      } else if(innerHeight < defaultHeight) { 
+        menubar = true;
+        cardUnit.classList.remove('largeViewport');
+        localStorage.removeItem('menubarHidden', 'hidden');
+      }
+      if(menubar) {
+        portrait = window.matchMedia('(orientation: portrait)').matches;
+        if(portrait) { defaultHeight = innerHeight}
+      }
+    }
+  } 
+
+  //* event ------------------------------------------
+
   const btnGetNum = document.getElementById('btn-getNum');
     btnGetNum.addEventListener('click', function () {
       clearBoard(); createWinningNumber(); assignWinningNumber();
@@ -115,6 +155,17 @@ const adjustRightNums = ['10','12','13','14','15','16','17','18','19'];
     btnToggle.addEventListener('click', () => {
       bgmHowl.stop(); swapHowl.play();
       setTimeout(() => { location.href = './numbers.html'}, 500);
+    });
+
+  const btns = document.querySelectorAll('.btn');
+    btns.forEach(btn => {
+      btn.addEventListener('touchstart', (e) => {
+        if(!touch) { touch = true; e.stopPropagation()}
+      });
+      btn.addEventListener('mousedown', () => { touch = true});
+      btn.addEventListener('touchend', () => {
+        setTimeout(() => { touch = false}, 200);
+      });
     });
 
   window.addEventListener('resize', () => {

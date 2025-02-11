@@ -5,21 +5,28 @@ import {console_color,console_red,console_orange,console_yellow,console_green,
 //---------------------------------------------------------------------------------------------
 //*                                ----- LOTO 7 -----
 //---------------------------------------------------------------------------------------------
-  const cardUnit = document.getElementById('card-unit');
-    let defaultNumber, numbers, winningNumber;
-    var bgmHowl = new Howl({src: ['mp3/loto7.mp3'], loop: true, volume: 0.05}); 
-    var jackpotHowl = new Howl({src: ['mp3/jackpot.mp3'], volume: 0.2}); 
-		var swapHowl = new Howl({src: ['mp3/swap.mp3'], volume: 0.2}); 
-    let isPlaying = false;
-    let muted = false;
-    let id_bgmHowl;
-    bgmHowl.stop();
 
-    function detectViewport() { //* init
-      if(getComputedStyle(document.body).height < '720px') {
-        cardUnit.classList.remove('largeViewport');
-      } else { cardUnit.classList.add('largeViewport')}
-    } detectViewport();
+  const container = document.querySelector('.container');
+  const cardUnit = document.getElementById('card-unit');
+  let portrait = window.matchMedia('(orientation: portrait)').matches;
+  let defaultNumber, numbers, winningNumber;
+  var bgmHowl = new Howl({src: ['mp3/loto7.mp3'], loop: true, volume: 0.05}); 
+  var jackpotHowl = new Howl({src: ['mp3/jackpot.mp3'], volume: 0.2}); 
+  var swapHowl = new Howl({src: ['mp3/swap.mp3'], volume: 0.2}); 
+  let [isPlaying, muted, touch] = [false, false, false];
+  let id_bgmHowl, defaultHeight, menubar;
+  bgmHowl.stop();
+
+  function init() { 
+    container.addEventListener('touchstart', e => e.preventDefault());
+    if(localStorage.hasOwnProperty('menubarHidden')) {
+      cardUnit.classList.add('largeViewport');
+      portrait = false; defaultHeight = innerHeight;
+    }
+    if(localStorage.hasOwnProperty('menubarHidden')) return;
+    if(portrait) { defaultHeight = innerHeight}
+    else { defaultHeight = innerWidth}
+  } init();
 
   function createWinningNumber() {
     [defaultNumber, numbers, winningNumber] = [[],[],[]];
@@ -35,7 +42,6 @@ import {console_color,console_red,console_orange,console_yellow,console_green,
       return a - b;
     }); 
   } createWinningNumber();
-
 
   function createFramework() {
     const card = document.createElement('div');
@@ -91,6 +97,40 @@ const adjustRightNums = ['10','12','13','14','15','16','17','18','19'];
     });
   }
 
+  function detectViewport() { 
+    if(portrait) {
+      if(innerHeight > defaultHeight) {
+        menubar = false;
+        cardUnit.classList.add('largeViewport');
+        localStorage.setItem('menubarHidden', 'hidden');
+      } else if(innerHeight === defaultHeight) { 
+        menubar = true;
+        cardUnit.classList.remove('largeViewport');
+        localStorage.removeItem('menubarHidden', 'hidden');
+      }
+    } 
+    falseOrientation();
+  } detectViewport();
+
+  function falseOrientation() {
+    if(!portrait) {
+      if(innerHeight > defaultHeight) {
+        menubar = false;
+        cardUnit.classList.add('largeViewport');
+        localStorage.setItem('menubarHidden', 'hidden');
+      } else if(innerHeight < defaultHeight) { 
+        menubar = true;
+        cardUnit.classList.remove('largeViewport');
+        localStorage.removeItem('menubarHidden', 'hidden');
+      }
+      if(menubar) {
+        portrait = window.matchMedia('(orientation: portrait)').matches;
+        if(portrait) { defaultHeight = innerHeight}
+      }
+    }
+  }
+
+  //* event ------------------------------------------
 
   const btnGetNum = document.getElementById('btn-getNum');
     btnGetNum.addEventListener('click', function () {
@@ -107,7 +147,7 @@ const adjustRightNums = ['10','12','13','14','15','16','17','18','19'];
       if(!isPlaying) return;
       if(!muted) { bgmHowl.fade(0.05, 0, 300, id_bgmHowl); muted = true} 
       else { bgmHowl.volume(0.05); muted = false}
-		});
+    });
 
   const btnToggle = document.querySelector('.btn-toggle');
     btnToggle.addEventListener('click', () => {
@@ -115,6 +155,17 @@ const adjustRightNums = ['10','12','13','14','15','16','17','18','19'];
       setTimeout(() => { location.href = './loto6.html'}, 500);
     });
 
+  const btns = document.querySelectorAll('.btn');
+    btns.forEach(btn => {
+      btn.addEventListener('touchstart', (e) => {
+        if(!touch) { touch = true; e.stopPropagation()}
+      });
+      btn.addEventListener('mousedown', () => { touch = true});
+      btn.addEventListener('touchend', () => {
+        setTimeout(() => { touch = false}, 200);
+      });
+    });
+    
   window.addEventListener('resize', () => {
     detectViewport();
   });
