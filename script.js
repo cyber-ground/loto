@@ -13,9 +13,8 @@ import {console_color,console_red,console_orange,console_yellow,console_green,
   var bgmHowl = new Howl({src: ['mp3/loto7.mp3'], loop: true, volume: 0.05}); 
   var jackpotHowl = new Howl({src: ['mp3/jackpot.mp3'], volume: 0.2}); 
   var swapHowl = new Howl({src: ['mp3/swap.mp3'], volume: 0.2}); 
-  let [isPlaying, muted, touch] = [false, false, false];
-  let id_bgmHowl, defaultHeight, menubar;
-  bgmHowl.stop();
+  let touch = false;
+  let defaultHeight, menubar;
 
   function init() { 
     container.addEventListener('touchstart', e => e.preventDefault());
@@ -136,17 +135,17 @@ const adjustRightNums = ['10','12','13','14','15','16','17','18','19'];
     btnGetNum.addEventListener('click', function () {
       clearBoard(); createWinningNumber(); assignWinningNumber();
       btnGetNum.classList.add('active');
-      if(!isPlaying) { id_bgmHowl = bgmHowl.play()}
-      isPlaying = true; jackpotHowl.play();
+      jackpotHowl.play();
       setTimeout(() => { btnGetNum.classList.remove('active')}, 150);
     });
 
   const themeLoto = document.querySelector('.theme-loto');
     themeLoto.style.setProperty('--theme', 'url("img/loto7.png")');
     themeLoto.addEventListener('click', () => {
-      if(!isPlaying) return;
-      if(!muted) { bgmHowl.fade(0.05, 0, 300, id_bgmHowl); muted = true} 
-      else { bgmHowl.volume(0.05); muted = false}
+      playToggle();
+      function playToggle() {
+        bgmHowl.playing() ? bgmHowl.pause() : bgmHowl.play();
+      }
     });
 
   const btnToggle = document.querySelector('.btn-toggle');
