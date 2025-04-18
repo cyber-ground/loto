@@ -14,8 +14,8 @@ import {console_color,console_red,console_orange,console_yellow,console_green,
 	var bgmHowl = new Howl({src: ['mp3/numbers.mp3'], loop: true, volume: 0.03}); 
 	var jackpotHowl = new Howl({src: ['mp3/jackpot.mp3'], volume: 0.2}); 
 	var swapHowl = new Howl({src: ['mp3/swap.mp3'], volume: 0.2}); 
-  let touch = false;
-  let defaultHeight, menubar;
+  let [muted, touch] = [false, false];
+  let id_bgmHowl, defaultHeight, menubar;
 
   function init() { 
     container.addEventListener('touchstart', e => e.preventDefault());
@@ -111,10 +111,14 @@ import {console_color,console_red,console_orange,console_yellow,console_green,
 
 	const themeLoto = document.querySelector('.theme-loto');
 		themeLoto.style.setProperty('--theme', 'url("img/numbers4.png")');
-		themeLoto.addEventListener('click', () => {
-      playToggle();
-      function playToggle() {
-        bgmHowl.playing() ? bgmHowl.pause() : bgmHowl.play();
+    themeLoto.addEventListener('click', () => {
+      togglePlay();
+      function togglePlay() {
+        bgmHowl.playing(id_bgmHowl) ? mute() : id_bgmHowl = bgmHowl.play();
+        function mute() {
+          if(!muted) { bgmHowl.fade(0.03, 0, 300, id_bgmHowl); muted = true} 
+          else { bgmHowl.volume(0.03); muted = false}
+        }
       }
     });
 
