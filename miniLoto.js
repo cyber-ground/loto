@@ -136,8 +136,8 @@ const adjustRightNums = ['10','12','13','14','15','16','17','18','19'];
   const btnGetNum = document.getElementById('btn-getNum');
     btnGetNum.addEventListener('click', function () {
       clearBoard(); createWinningNumber(); assignWinningNumber();
-      btnGetNum.classList.add('active');
       jackpotHowl.play();
+      btnGetNum.classList.add('active');
       setTimeout(() => { btnGetNum.classList.remove('active') }, 150);
     });
 

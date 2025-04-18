@@ -104,8 +104,8 @@ import {console_color,console_red,console_orange,console_yellow,console_green,
 	const btnGetNum = document.getElementById('btn-getNum');
 		btnGetNum.addEventListener('click', function () {
 			clearBoard(); createWinningNumber(); assignWinningNumber();
-			btnGetNum.classList.add('active');
 			jackpotHowl.play(); 
+			btnGetNum.classList.add('active');
 			setTimeout(() => { btnGetNum.classList.remove('active')}, 150);
 		});
 
